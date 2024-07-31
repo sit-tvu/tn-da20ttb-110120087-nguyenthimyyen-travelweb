@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="button">
                                             <a class="mb-0 read_more text-decoration-none" href="/chi-tiet-bai-viet/{{ $item->ma_bai_viet }}">
-                                                Xem thêm
+                                                Xem chi tiết
                                             </a>
                                         </div>
                                     </div>

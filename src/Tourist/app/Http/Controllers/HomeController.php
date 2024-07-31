@@ -137,6 +137,15 @@ class HomeController extends Controller
             $baiVietList = $baiVietList->flatten();
             $baiVietList = $baiVietList->unique('ma_bai_viet');
 
+            $currentPage = LengthAwarePaginator::resolveCurrentPage();
+            $baiVietList = new LengthAwarePaginator(
+                $baiVietList->forPage($currentPage, 6),
+                $baiVietList->count(),
+                6,
+                $currentPage,
+                ['path' => LengthAwarePaginator::resolveCurrentPath()]
+            );
+
             $loaiDiaDiemList = LoaiDiaDiem::orderBy('updated_at', 'desc')->get();
             $dmDuLichList = DanhMucDuLich::orderBy('updated_at', 'desc')->get();
             $quanHuyenList = QuanHuyen::get();
@@ -149,7 +158,9 @@ class HomeController extends Controller
                 'quanHuyenList'   => $quanHuyenList,
             ]);
         } else {
-            $baiVietList = BaiViet::where('ten_bai_viet', 'like', '%' . $req['query'] . '%')->get();
+            $baiVietList = BaiViet::where('ten_bai_viet', 'like', '%' . $req['query'] . '%')
+                ->paginate(6);
+
             $loaiDiaDiemList = LoaiDiaDiem::orderBy('updated_at', 'desc')->get();
             $dmDuLichList = DanhMucDuLich::orderBy('updated_at', 'desc')->get();
             $quanHuyenList = QuanHuyen::get();
@@ -166,7 +177,7 @@ class HomeController extends Controller
 
     public function baiVietCacChuyenDi(Request $req)
     {
-        $taiKhoanList = TaiKhoan::where('ma_loai_tai_khoan', 1)->get();
+        $taiKhoanList = TaiKhoan::where('ma_loai_tai_khoan', 2)->get();
 
         $baiVietList = $taiKhoanList->flatMap(function ($taiKhoan) {
             return $taiKhoan->baiVietList;
@@ -187,23 +198,91 @@ class HomeController extends Controller
 
     public function baiVietCtyDuLich(Request $req)
     {
-        $taiKhoanList = TaiKhoan::where('ma_loai_tai_khoan', 2)->get();
+        if ($req['quan_huyen'] !== null) {
+            $xaPhuongList = XaPhuong::where('ma_quan_huyen', $req['quan_huyen'])->get();
 
-        $baiVietList = $taiKhoanList->flatMap(function ($taiKhoan) {
-            return $taiKhoan->baiVietList;
-        });
+            $diaDiemLists = $xaPhuongList->map(function ($xaPhuong) {
+                return $xaPhuong->diaDiemList;
+            });
 
-        $loaiDiaDiemList = LoaiDiaDiem::orderBy('updated_at', 'desc')->get();
-        $dmDuLichList = DanhMucDuLich::orderBy('updated_at', 'desc')->get();
-        $quanHuyenList = QuanHuyen::get();
+            $baiVietList = $diaDiemLists->flatten()->map(function ($diaDiem) {
+                return $diaDiem->baiVietList;
+            });
 
-        return view('home.bai-viet-cty-du-lich', [
-            'title'           => 'Bài viết của công ty du lịch',
-            'baiVietList'     => $baiVietList,
-            'loaiDiaDiemList' => $loaiDiaDiemList,
-            'dmDuLichList'    => $dmDuLichList,
-            'quanHuyenList'   => $quanHuyenList,
-        ]);
+            $baiVietList = $baiVietList->flatten();
+            $baiVietList = $baiVietList->unique('ma_bai_viet');
+
+            $baiVietList = $baiVietList->filter(function ($baiViet) {
+                return $baiViet->nguoiDangBaiViet->ma_loai_tai_khoan == 2;
+            });
+
+            $currentPage = LengthAwarePaginator::resolveCurrentPage();
+            $baiVietList     = new LengthAwarePaginator(
+                $baiVietList->forPage($currentPage, 6),
+                $baiVietList->count(),
+                6,
+                $currentPage,
+                ['path' => LengthAwarePaginator::resolveCurrentPath()]
+            );
+
+            $loaiDiaDiemList = LoaiDiaDiem::orderBy('updated_at', 'desc')->get();
+            $dmDuLichList = DanhMucDuLich::orderBy('updated_at', 'desc')->get();
+            $quanHuyenList = QuanHuyen::get();
+
+            return view('home.bai-viet', [
+                'title'           => 'Bài viết',
+                'baiVietList'     => $baiVietList,
+                'loaiDiaDiemList' => $loaiDiaDiemList,
+                'dmDuLichList'    => $dmDuLichList,
+                'quanHuyenList'   => $quanHuyenList,
+            ]);
+        } else {
+            $baiVietList = BaiViet::where('ten_bai_viet', 'like', '%' . $req['query'] . '%')
+                ->get();
+
+            $baiVietList = $baiVietList->filter(function ($baiViet) {
+                return $baiViet->nguoiDangBaiViet->ma_loai_tai_khoan == 2;
+            });
+
+            $currentPage = LengthAwarePaginator::resolveCurrentPage();
+            $baiVietList = new LengthAwarePaginator(
+                $baiVietList->forPage($currentPage, 6),
+                $baiVietList->count(),
+                6,
+                $currentPage,
+                ['path' => LengthAwarePaginator::resolveCurrentPath()]
+            );
+
+            $loaiDiaDiemList = LoaiDiaDiem::orderBy('updated_at', 'desc')->get();
+            $dmDuLichList = DanhMucDuLich::orderBy('updated_at', 'desc')->get();
+            $quanHuyenList = QuanHuyen::get();
+
+            return view('home.bai-viet', [
+                'title'           => 'Bài viết',
+                'baiVietList'     => $baiVietList,
+                'loaiDiaDiemList' => $loaiDiaDiemList,
+                'dmDuLichList'    => $dmDuLichList,
+                'quanHuyenList'   => $quanHuyenList,
+            ]);
+        }
+
+        // $taiKhoanList = TaiKhoan::where('ma_loai_tai_khoan', 2)->get();
+
+        // $baiVietList = $taiKhoanList->flatMap(function ($taiKhoan) {
+        //     return $taiKhoan->baiVietList;
+        // });
+
+        // $loaiDiaDiemList = LoaiDiaDiem::orderBy('updated_at', 'desc')->get();
+        // $dmDuLichList = DanhMucDuLich::orderBy('updated_at', 'desc')->get();
+        // $quanHuyenList = QuanHuyen::get();
+
+        // return view('home.bai-viet-cty-du-lich', [
+        //     'title'           => 'Bài viết của công ty du lịch',
+        //     'baiVietList'     => $baiVietList,
+        //     'loaiDiaDiemList' => $loaiDiaDiemList,
+        //     'dmDuLichList'    => $dmDuLichList,
+        //     'quanHuyenList'   => $quanHuyenList,
+        // ]);
     }
 
     public function danhSachCtyDuLich(Request $req)
@@ -291,7 +370,10 @@ class HomeController extends Controller
 
     public function registryStore(Request $req)
     {
-        if ($req['mat_khau'] !== $req['nhap_lai_mat_khau']) {
+        if (!preg_match('/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-5]|9[0-4|6-9])(\d{7})$/', $req['sdt'])) {
+            Alert::error('Số điện thoại không hợp lệ');
+            return redirect()->back();
+        } else if ($req['mat_khau'] !== $req['nhap_lai_mat_khau']) {
             Alert::error('Mật khẩu không khớp');
             return redirect()->back();
         } else if (TaiKhoan::where('sdt', $req['sdt'])->first()) {

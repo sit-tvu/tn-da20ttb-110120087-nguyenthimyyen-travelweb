@@ -11,7 +11,7 @@
                 <div class="sub-banner-inner-con">
                     <h1>{{ $title }}</h1>
                     <p class="font-size-20">Nơi chia sẻ kinh nghiệm về những chiến đi, và các ưu đãi mới nhất</p>
-                    
+
                 </div>
                 <!-- col-lg-6 -->
             </div>
@@ -73,13 +73,17 @@
                                         </div>
                                         <div class="button">
                                             <a class="mb-0 read_more text-decoration-none" href="/chi-tiet-bai-viet/{{ $item->ma_bai_viet }}">
-                                                Xem thêm
+                                                Xem chi tiết
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
+
+                        </div>
+                        <div class="row d-flex align-items-center justify-content-between">
+                            {!! $baiVietList->links() !!}
                         </div>
                     </div>
                 </div>

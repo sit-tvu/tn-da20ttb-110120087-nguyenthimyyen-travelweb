@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="button">
                                             <a class="mb-0 read_more text-decoration-none" href="/chi-tiet-dia-diem/{{ $item->ma_dia_diem }}">
-                                                Xem thêm
+                                                Xem chi tiết
                                             </a>
                                         </div>
                                     </div>

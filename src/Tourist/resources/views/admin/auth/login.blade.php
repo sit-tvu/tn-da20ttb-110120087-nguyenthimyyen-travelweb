@@ -25,7 +25,7 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block">
-                                <img width="100%" src="https://img.pikbest.com/origin/06/01/50/24xpIkbEsT4Rf.jpg!w700wp" alt="">
+                                <img width="100%" src="/anh-nen.png" alt="">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
@@ -51,6 +51,10 @@
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="/auth/registry">Tạo tài khoản</a>
+                                    </div>
+                                    <div style="height: 140px;"></div>
+                                    <div class="text-center">
+                                        <a class="small" href="/">Quay về trang chủ</a>
                                     </div>
                                 </div>
                             </div>

@@ -61,7 +61,7 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">Du lịch</div>
             </a>
-            @if(Auth::user()->ma_loai_tai_khoan == '1')
+            <!-- @if(Auth::user()->ma_loai_tai_khoan == '1') -->
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->

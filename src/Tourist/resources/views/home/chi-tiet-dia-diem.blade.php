@@ -65,19 +65,19 @@
                     </div>
                     @endforeach
                 </div>
-                <div class="box1 box3" data-aos="fade-up" data-aos-duration="700">
+                <!-- <div class="box1 box3" data-aos="fade-up" data-aos-duration="700">
                     <h5>Liên hệ chúng tôi</h5>
                     <ul class="list-unstyled mb-0">
-                        <!-- <li class="text-size-16 text"><span class="d-inline-block">Email:</span> <a href="mailto:info@traveltrek.com" class="mb-0 text text-decoration-nonetext-size-16">info@traveltrek.com</a></li>
+                        <li class="text-size-16 text"><span class="d-inline-block">Email:</span> <a href="mailto:info@traveltrek.com" class="mb-0 text text-decoration-nonetext-size-16">info@traveltrek.com</a></li>
                         <li class="text-size-16 text"><span class="d-inline-block">Phone:</span> <a href="tel:+12345678900" class="mb-0 text text-decoration-nonetext-size-16">+1 234 567 89 0 0</a></li>
                         <li class="text-size-16 text1"><span class="d-inline-block">Facebook:</span> <a href="tel:+1(987)65432199" class="mb-0 text text-decoration-nonetext-size-16">+1 ( 987 ) 654 321 9 9</a></li> -->
-                        <li class="text-size-16 text"><span class="d-inline-block">Email:</span> <a href="mailto:info@traveltrek.com" class="mb-0 text text-decoration-nonetext-size-16">info@TraVinh.com</a></li>
+                        <!-- <li class="text-size-16 text"><span class="d-inline-block">Email:</span> <a href="mailto:info@traveltrek.com" class="mb-0 text text-decoration-nonetext-size-16">info@TraVinh.com</a></li>
                         <li class="text-size-16 text"><span class="d-inline-block">Phone:</span> <a href="tel:+12345678900" class="mb-0 text text-decoration-nonetext-size-16">099 9284 284</a></li>
                         <li class="text-size-16 text1"><span class="d-inline-block">Facebook:</span> <a href="tel:+1(987)65432199" class="mb-0 text text-decoration-nonetext-size-16">Du lịch Trà Vinh</a></li>
                     </ul>
-                </div>
+                </div>  -->
                 <div class="box1 box5" data-aos="fade-up" data-aos-duration="700">
-                    <h5>Địa chỉ</h5>
+                    <h5>Địa chỉ địa điểm</h5>
                     <span>{{ $diaDiem->dia_chi }}, </span>
                     <span>{{ $diaDiem->xaPhuong->ten_xa_phuong }}, </span>
                     <span>{{ $diaDiem->xaPhuong->quanHuyen->ten_quan_huyen }} </span>

@@ -26,7 +26,7 @@ class ActiveTravelCompany extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Active Travel Company',
+            subject: 'Thông báo',
         );
     }
 

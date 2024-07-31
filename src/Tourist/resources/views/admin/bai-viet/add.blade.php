@@ -15,15 +15,15 @@
                     <div class="col-md-8">
                         <div class="mb-3">
                             <label class="form-label">Tên bài viết</label>
-                            <input name="ten_bai_viet" type="text" class="form-control">
+                            <input name="ten_bai_viet" type="text" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Mô tả ngắn</label>
-                            <input name="mo_ta_ngan" type="text" class="form-control">
+                            <input name="mo_ta_ngan" type="text" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Địa điểm</label>
-                            <select name="ma_dia_diem[]" class="select2 form-control" multiple="multiple">
+                            <select name="ma_dia_diem[]" class="select2 form-control" multiple="multiple" required>
                                 @foreach($diaDiemList as $item)
                                 <option value="{{ $item->ma_dia_diem }}">
                                     {{ $item->ten_dia_diem }}

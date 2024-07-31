@@ -69,7 +69,7 @@
                 <td>{{ App\Helpers\Helper::DateTime($item->ngay_dang_bai_viet) }}</td>
                 <td>{{ $item->nguoiDangBaiViet->ten_tai_khoan }}</td>
                 <td>
-                    <a href="/admin/bai-viet/view-comment/{{ $item->ma_bai_viet }}" class="btn btn-info rounded-circle"><i class="far fa-comments"></i></a>
+                    <!-- <a href="/admin/bai-viet/view-comment/{{ $item->ma_bai_viet }}" class="btn btn-info rounded-circle"><i class="far fa-comments"></i></a> -->
                     <a href="/admin/bai-viet/edit/{{ $item->ma_bai_viet }}" class="btn btn-warning rounded-circle"><i class="far fa-edit"></i></a>
                     <div onclick="removeRow('/admin/bai-viet/destroy', '{{ $item->ma_bai_viet }}')" class="btn btn-danger rounded-circle"><i class="fas fa-trash-alt"></i></div>
                 </td>

@@ -30,7 +30,7 @@ class NofiTravelCompany extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Thông báo đã duyệt',
+            subject: 'Thông báo',
         );
     }
 

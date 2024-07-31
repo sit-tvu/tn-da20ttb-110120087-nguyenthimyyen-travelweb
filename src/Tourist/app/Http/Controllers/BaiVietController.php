@@ -62,7 +62,10 @@ class BaiVietController extends Controller
 
     public function store(Request $req)
     {
-        
+        if ($req['noi_dung_bai_viet'] == '') {
+            Alert::error('Vui lòng thêm mô tả bài viết');
+            return redirect()->back();
+        }
 
         // Add thumbnail
         if ($req->hasFile('hinh_anh_bai_viet')) {
@@ -70,6 +73,9 @@ class BaiVietController extends Controller
             $newImageName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '-' . now()->format('YmdHis') . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('public/bai-viet/' . date('Y') . '/' . date('m'), $newImageName);
             $req['hinh_anh_bai_viet'] = str_replace('public/', '/storage/', $path);
+        } else {
+            Alert::error('Vui lòng thêm hình ảnh bài viết');
+            return redirect()->back();
         }
         //else {
         //     Alert::error('Vui lòng thêm hình ảnh bài viết');
@@ -78,7 +84,7 @@ class BaiVietController extends Controller
         // // DiaDiem::create($req->input());
         // Alert::success('Thêm bài viết thành công');
         // return redirect('/admin/bai-viet');
-    
+
 
         $req['ngay_dang_bai_viet'] = Carbon::now();
         $req['nguoi_dang_bai_viet'] = Auth::user()->ma_tai_khoan;
@@ -103,6 +109,11 @@ class BaiVietController extends Controller
 
     public function update(Request $req, BaiViet $baiViet)
     {
+        if ($req['noi_dung_bai_viet'] == '') {
+            Alert::error('Vui lòng thêm mô tả bài viết');
+            return redirect()->back();
+        }
+
         // Add thumbnail
         if ($req->hasFile('hinh_anh_bai_viet')) {
             // Delete old images
@@ -113,7 +124,11 @@ class BaiVietController extends Controller
             $newImageName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '-' . now()->format('YmdHis') . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('public/bai-viet/' . date('Y') . '/' . date('m'), $newImageName);
             $req['hinh_anh_bai_viet'] = str_replace('public/', '/storage/', $path);
+        } else {
+            Alert::error('Vui lòng thêm hình ảnh bài viết');
+            return redirect()->back();
         }
+
         $baiViet->update($req->input());
         $baiViet->diaDiemList()->sync($req['ma_dia_diem']);
         Alert::success('Chỉnh sửa bài viết thành công');
